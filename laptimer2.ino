@@ -82,7 +82,7 @@ Adafruit_PCD8544 display = Adafruit_PCD8544(11,13,10,2, 9);
 
 // where we store our config
 #define CONFADDR 20
-#define CONFVER  1
+#define CONFVER  2
 
 volatile int newlap;
 volatile long reedready;
@@ -150,13 +150,13 @@ void cleardata() {
   curlap    = 0;
   state     = 0; //waiting to start
   timing[0] = { 
-    NOTIME, NOTIME, NOTIME  }; //lap
+    NOTIME, NOTIME, NOTIME    }; //lap
   timing[1] = { 
-    NOTIME, NOTIME, NOTIME  }; //sec1
+    NOTIME, NOTIME, NOTIME    }; //sec1
   timing[2] = { 
-    NOTIME, NOTIME, NOTIME  }; //sec2
+    NOTIME, NOTIME, NOTIME    }; //sec2
   timing[3] = { 
-    NOTIME, NOTIME, NOTIME  }; //sec3  
+    NOTIME, NOTIME, NOTIME    }; //sec3  
 }
 
 void getconf() {
@@ -183,8 +183,6 @@ void loop() {
   static int lastkey = btnNONE;
   static int keycount = 0;
 
-  //PRINTLN(reedready);
-  //PRINTLN(digitalRead(REEDPIN));
 
   if (newlap > 0) {
     //calculate
@@ -209,7 +207,7 @@ void loop() {
         cursector++;
       }
     }
-    
+
     state      = 1; //running
 
     show();
@@ -221,7 +219,7 @@ void loop() {
     state=2;
     show();
   }
-  
+
   for (int i=0; i <= 1024; i++) {
     if (digitalRead(REEDPIN)==0) {
 
@@ -230,7 +228,8 @@ void loop() {
         reedready = millis();
 
         break;
-      } else {
+      } 
+      else {
         //parking over magnet
         reedready = millis();
       }
@@ -349,92 +348,6 @@ void show() {
 
   display.display();
 
-/***
-  lcd.setCursor(0,0);
-  lcd.print( ftime(timing[lastsector].last,buff));
-
-  lcd.setCursor(0,1);
-  lcd.print( ftime(timing[LAP].last,buff));
-
-  lcd.setCursor(12,0);
-  if (state == 0) {
-    lcd.print("WAIT");
-  } 
-  else if (state == 1) {
-    lcd.print("RACE");
-  } 
-  else {
-    lcd.print("STOP");
-  }
-
-
-  lcd.setCursor(6,0);
-
-  if (curlap < 2) {
-    lcd.print(" *.**");
-  } 
-  else {
-    lcd.print( fdiff(timing[lastsector].diff,buff));
-  }
-
-
-  //sector and laptime is identical 
-  if ( sectors > 1 ) {
-    lcd.setCursor(6,1);
-
-    if (curlap < 2) {
-      lcd.print(" *.**");
-    } 
-    else {
-      lcd.print( fdiff(timing[LAP].diff,buff));
-    }
-
-
-    lcd.setCursor(12,1);
-    if (curlap > 0) {
-      if (curlap < 10) {
-        lcd.print("0");
-      }
-      lcd.print(curlap);
-      lcd.print("|");
-      lcd.print(cursector);
-    } 
-    else {
-      lcd.print("**|*");
-    }
-  } 
-  else {
-    //last line in one-sector-mode
-    lcd.setCursor(0,1);
-    lcd.print("BEST: ");
-    lcd.print( ftime(timing[LAP].best,buff) );
-
-    lcd.setCursor(12,1);
-    lcd.print("L:");
-    if (curlap > 0) {
-      if (curlap < 10) {
-        lcd.print("0");
-      }
-      lcd.print(curlap);
-    } 
-    else {
-      lcd.print("**");
-    }
-  }
-
-  if ( (timing[lastsector].diff != NOTIME and timing[lastsector].diff < 0) or
-    (timing[LAP].diff != NOTIME and timing[LAP].diff < 0)) {
-    lcd.setCursor(12,0);
-    lcd.print("BEST");
-    for (int i=0; i<5; i++) {
-      delay(500);
-      lcd.noDisplay();
-      delay(100);
-      lcd.display();
-    }
-  } 
-  **/  
-
 }
 
 char* fdiff(int diff, char* buf) {
@@ -469,6 +382,7 @@ char* ftime(int time, char* buf) {
   sprintf(buf, "%2d.%02d", secs, hund); 
   return(buf);   
 }
+
 
 
 
