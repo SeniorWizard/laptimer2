@@ -24,9 +24,12 @@ This design splits the arduino and the display. The idea is to be able to have t
 * Velcro Pants Strap for Cycling
 * 9V Battery and Adapter
 
-The wiring of the display is choosen to make the soldering as easy as possible using two pices of four connector wire, also allowing the use of the backlight (eg to blink for best lap).
+The wiring of the display is choosen to make the soldering as easy as possible using two pices of four connector wire, also allowing the use of the backlight (eg to blink for best lap). The display I have allows for using both top and buttom for adding the wires. I have choosen to use every second hole in each row and connect with a four conductor wire to make it easier for my fat fingers to avoid shorts when soldering.
 
 ![Overview](https://raw.githubusercontent.com/SeniorWizard/laptimer2/master/laptimer_v2_parts.png)
+
+![Wiring](https://raw.githubusercontent.com/SeniorWizard/laptimer2/master/laptimer2_bb.png)
+
 
 ## Operation
 
